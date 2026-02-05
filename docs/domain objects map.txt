@@ -1,0 +1,69 @@
+workout fields:
+
+- workout number/ID
+- date of workout
+- type of workout (running, cycling, weights, etc)
+- duration
+- calories burned
+
+	limits:
+
+	duration > 0
+	caloriesBurned > 0 (zero-calorie workouts can exist, especially if someone forgets to log calories)
+	date cannot be null
+	type cannot be null
+
+Goals:
+
+- goalType
+	WORKOUT_COUNT
+	TOTAL_DURATION
+	CALORIES_BURNED
+	WORKOUT_TYPE_COUNT
+
+- targetValue
+- timeFrame (WEEK or MONTH
+
+	limits:
+	
+	- validate goals
+	- progress can be 0
+	- Goal Service evaluates and returns boolean
+
+-- actual program --
+
+Workout Service
+
+- validateWorkout()
+- logWorkout()
+- getAllWorkouts()
+- getWorkoutsByDate()
+- getWorkoutsByType()
+
+Progress Service
+
+- calculate:
+	total workouts
+	total duration
+	total calories
+	filter by workout type
+	filter by workout date
+
+progress service depends on workout service
+use mockito here for testing
+use WorkoutService as a data source
+does not store any data
+
+Goal Service
+
+- only evaluates goals -
+
+- register goals
+- check if goal is met
+- compare progress vs target
+
+depends on progress service which does the calculations
+
+Dependancy flow
+
+Goal Service => Progress Service => WorkoutService

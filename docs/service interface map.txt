@@ -1,0 +1,67 @@
+Workout Service
+
+Purpose:
+
+- owns the workout data
+- validates workouts
+- provides workout data to other srvices
+
+Responsibilities:
+
+-- workout validation --
+
+- validate workout fields (date, duration, calories, type)
+
+-- workout storage --
+
+- add a workout
+- store workouts in memory
+
+-- workout retrieval --
+
+- retrieve all workouts
+- retrive workouts by date range
+- retrieve workouts by type
+
+-- only manages workout data --
+
+Progress Service
+
+Purpose:
+
+- calculate progress metrics
+- only does calculations, does not store data
+- never mutates the data
+
+Dependency = workout service
+
+Responsibilities:
+
+-- calculate --
+
+- total number of workouts
+- total duration
+- total calories burned
+
+totals by:
+
+-- workout type
+-- date range
+-- time fram (week/month)
+
+-- mock workout service in tests --
+
+Goal Service
+
+Purpose:
+
+- evaluate if goals are met
+- never calculate metrics itself
+
+Dependecy = progress service
+
+Responsibilities:
+
+- register goals
+- evaluat if a goal is met
+- return goal status (met/not met)
