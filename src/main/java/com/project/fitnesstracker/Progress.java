@@ -1,4 +1,4 @@
 package com.project.fitnesstracker;
 
-public class workout {
+public class Progress {
 }
