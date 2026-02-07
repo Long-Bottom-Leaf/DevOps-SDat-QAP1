@@ -56,6 +56,50 @@ class InMemoryProgressServiceTest {
             when(mockWorkoutService.getAllWorkouts()).thenReturn(List.of(workout1, workout2, workout3));
         }
 
+    // Empty workout lists handled correctly
+        @Test
+        void testEmptyWorkoutList() {
+            when(mockWorkoutService.getAllWorkouts()).thenReturn(List.of());
+
+            assertEquals(0, progressService.totalWorkouts());
+            assertEquals(0, progressService.totalDuration());
+            assertEquals(0, progressService.totalCalories());
+            assertTrue(progressService.filterByType(WorkoutType.RUNNING).isEmpty());
+            assertTrue(progressService.filterByDateRange(
+                    LocalDate.of(2026,1,1),
+                    LocalDate.of(2026,1,31)
+            ).isEmpty());
+
+            System.out.println("Empty workout list handled correctly!");
+        }
+
+    // date range mismatch
+        @Test
+        void testDateRangeWithNoMatches() {
+            // Mock with some workouts outside the range
+            Workout workout = new Workout(1, LocalDate.of(2026,2,1), WorkoutType.RUNNING, 30, 200);
+            when(mockWorkoutService.getAllWorkouts()).thenReturn(List.of(workout));
+
+            List<Workout> filtered = progressService.filterByDateRange(
+                    LocalDate.of(2025,1,1),
+                    LocalDate.of(2025,1,31)
+            );
+
+            assertTrue(filtered.isEmpty());
+            System.out.println("Date range with no workouts returns empty list!");
+        }
+
+    // test empty arguments handled correctly
+        @Test
+        void testNullArguments() {
+            when(mockWorkoutService.getAllWorkouts()).thenReturn(List.of());
+
+            assertThrows(NullPointerException.class, () -> progressService.filterByDateRange(null, LocalDate.now()));
+            assertThrows(NullPointerException.class, () -> progressService.filterByDateRange(LocalDate.now(), null));
+
+            System.out.println("Null arguments properly throw exceptions!");
+        }
+
     // correct total workouts
         @Test
         void testTotalWorkouts() {
