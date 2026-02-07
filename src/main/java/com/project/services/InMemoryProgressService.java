@@ -135,7 +135,7 @@ public class InMemoryProgressService implements ProgressService {
                     .filter(workout ->
                             !workout.getDate().isBefore(start)
                     &&      !workout.getDate().isAfter(end))
-                    .mapToInt(Workout::getDuration)
+                    .mapToInt(Workout::getCaloriesBurned)
                     .sum();
         }
 

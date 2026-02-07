@@ -52,7 +52,7 @@ class InMemoryProgressServiceTest {
                     150
             );
 
-            // Mock the WorkoutService to return these workouts
+            // mock the WorkoutService to return these workouts
             when(mockWorkoutService.getAllWorkouts()).thenReturn(List.of(workout1, workout2, workout3));
         }
 
@@ -139,6 +139,7 @@ class InMemoryProgressServiceTest {
             );
 
             assertEquals(50, duration); // 30 + 20
+
             System.out.println("Combined duration correct!");
         }
 
@@ -151,6 +152,7 @@ class InMemoryProgressServiceTest {
             );
 
             assertEquals(350, calories); // 200 + 150
+
             System.out.println("Combined calories correct!");
         }
 
