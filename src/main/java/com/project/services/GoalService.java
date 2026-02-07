@@ -1,5 +1,10 @@
 package com.project.services;
 
-public class GoalService {
+import com.project.fitnesstracker.Goal;
 
+public interface GoalService {
+
+    void registerGoal(Goal goal);
+
+    boolean isGoalMet(Goal goal);
 }
