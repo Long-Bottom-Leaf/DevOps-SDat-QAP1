@@ -1,6 +1,6 @@
 package com.project.fitnesstracker;
 
-public enum GoalTimefram {
+public enum GoalTimeframe {
     WEEKLY,
     MONTHLY
 }

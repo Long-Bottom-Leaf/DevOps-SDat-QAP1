@@ -91,6 +91,21 @@ public class InMemoryProgressService implements ProgressService {
                     .sum();
         }
 
+    @Override
+    public int totalWorkoutsByTypeAndDateRange(WorkoutType type, LocalDate start, LocalDate end) {
+        return 0;
+    }
+
+    @Override
+    public int totalDurationByTypeAndDateRange(WorkoutType type, LocalDate start, LocalDate end) {
+        return 0;
+    }
+
+    @Override
+    public int totalCaloriesByTypeAndDateRange(WorkoutType type, LocalDate start, LocalDate end) {
+        return 0;
+    }
+
     // ===== Filters =====
         @Override
         public List<Workout> filterByType(WorkoutType type) {
