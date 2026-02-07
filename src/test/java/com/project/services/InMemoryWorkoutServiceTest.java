@@ -87,4 +87,6 @@ public class InMemoryWorkoutServiceTest {
 
             System.out.print("Cannot add a new workout at this time!");
         }
+
+    // more tests can be added
 }
