@@ -14,12 +14,12 @@ import static org.mockito.Mockito.*;
 class InMemoryProgressServiceTest {
 
     // initializations
-    private WorkoutService mockWorkoutService;
-    private ProgressService progressService;
+        private WorkoutService mockWorkoutService;
+        private ProgressService progressService;
 
-    private Workout workout1;
-    private Workout workout2;
-    private Workout workout3;
+        private Workout workout1;
+        private Workout workout2;
+        private Workout workout3;
 
     // ensure workouts exist for testing
         @BeforeEach
@@ -98,7 +98,7 @@ class InMemoryProgressServiceTest {
                     LocalDate.of(2026, 2, 5)
             );
 
-            assertEquals(3, filtered.size()); // workout1 and workout3
+            assertEquals(3, filtered.size());
             assertTrue(filtered.contains(workout1));
             assertTrue(filtered.contains(workout3));
 
@@ -117,7 +117,44 @@ class InMemoryProgressServiceTest {
             System.out.print("Two workouts were found for the running type!\n");
         }
 
-    // verify other workout service calls
+    // combined searches (date range and type)
+        @Test
+        void testTotalWorkoutsByTypeAndDateRange() {
+            int count = progressService.totalWorkoutsByTypeAndDateRange(
+                    WorkoutType.RUNNING,
+                    LocalDate.of(2026, 2, 1),
+                    LocalDate.of(2026, 2, 3)
+            );
+
+            assertEquals(1, count); // only workout1
+            System.out.println("Combined workout count correct!");
+        }
+
+        @Test
+        void testTotalDurationByTypeAndDateRange() {
+            int duration = progressService.totalDurationByTypeAndDateRange(
+                    WorkoutType.RUNNING,
+                    LocalDate.of(2026, 2, 1),
+                    LocalDate.of(2026, 2, 5)
+            );
+
+            assertEquals(50, duration); // 30 + 20
+            System.out.println("Combined duration correct!");
+        }
+
+        @Test
+        void testTotalCaloriesByTypeAndDateRange() {
+            int calories = progressService.totalCaloriesByTypeAndDateRange(
+                    WorkoutType.RUNNING,
+                    LocalDate.of(2026, 2, 1),
+                    LocalDate.of(2026, 2, 5)
+            );
+
+            assertEquals(350, calories); // 200 + 150
+            System.out.println("Combined calories correct!");
+        }
+
+    // verify interactions
         @Test
         void verifyWorkoutServiceCalled() {
             progressService.totalWorkouts();
