@@ -7,4 +7,6 @@ public interface GoalService {
     void registerGoal(Goal goal);
 
     boolean isGoalMet(Goal goal);
+
+    Goal[] getAllGoals();
 }

@@ -56,4 +56,10 @@ public class InMemoryGoalService implements GoalService {
 
             return actualValue >= goal.getTargetValue();
         }
+
+    // get all goals
+        @Override
+        public Goal[] getAllGoals() {
+            return new Goal[0];
+        }
 }
