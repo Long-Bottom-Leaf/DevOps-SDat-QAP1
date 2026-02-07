@@ -64,7 +64,7 @@ public class InMemoryProgressService implements ProgressService {
                     .sum();
         }
 
-    // ===== Totals by date range =====
+    // totals by date range
         @Override
         public int totalWorkoutsByDateRange(LocalDate start, LocalDate end) {
             return (int) workoutService.getAllWorkouts()
@@ -91,20 +91,53 @@ public class InMemoryProgressService implements ProgressService {
                     .sum();
         }
 
-    @Override
-    public int totalWorkoutsByTypeAndDateRange(WorkoutType type, LocalDate start, LocalDate end) {
-        return 0;
-    }
+    // totals by date range and type
+        @Override
+        public int totalWorkoutsByTypeAndDateRange(
+                WorkoutType type,
+                LocalDate start,
+                LocalDate end
+        ) {
+            return (int) workoutService.getAllWorkouts()
+                    .stream()
+                    .filter(workout -> workout.getType() == type)
+                    .filter(workout ->
+                            !workout.getDate().isBefore(start)
+                                    && !workout.getDate().isAfter(end))
+                    .count();
+        }
 
-    @Override
-    public int totalDurationByTypeAndDateRange(WorkoutType type, LocalDate start, LocalDate end) {
-        return 0;
-    }
+        @Override
+        public int totalDurationByTypeAndDateRange(
+                WorkoutType type,
+                LocalDate start,
+                LocalDate end
+        ) {
+            return workoutService.getAllWorkouts()
+                    .stream()
+                    .filter(workout -> workout.getType() == type)
+                    .filter(workout ->
+                            !workout.getDate().isBefore(start)
+                                    && !workout.getDate().isAfter(end))
+                    .mapToInt(Workout::getDuration)
+                    .sum();
+        }
 
-    @Override
-    public int totalCaloriesByTypeAndDateRange(WorkoutType type, LocalDate start, LocalDate end) {
-        return 0;
-    }
+        @Override
+        public int totalCaloriesByTypeAndDateRange(
+                WorkoutType type,
+                LocalDate start,
+                LocalDate end
+        ) {
+            return workoutService.getAllWorkouts()
+                    .stream()
+                    .filter(workout -> workout.getType() == type)
+                    .filter(workout ->
+                            !workout.getDate().isBefore(start)
+                    &&      !workout.getDate().isAfter(end))
+                    .mapToInt(Workout::getDuration)
+                    .sum();
+        }
 
     // ===== Filters =====
         @Override
