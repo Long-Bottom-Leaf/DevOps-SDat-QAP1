@@ -39,6 +39,7 @@ class InMemoryGoalServiceTest {
             )).thenReturn(4);
 
             assertTrue(goalService.isGoalMet(goal));
+
             System.out.print("Workout type count goal is met!\n");
         }
 
@@ -60,6 +61,7 @@ class InMemoryGoalServiceTest {
             )).thenReturn(3);
 
             assertFalse(goalService.isGoalMet(goal));
+
             System.out.print("Workout type count goal has not been met!\n");
         }
 
@@ -81,6 +83,7 @@ class InMemoryGoalServiceTest {
             )).thenReturn(320);
 
             assertTrue(goalService.isGoalMet(goal));
+
             System.out.print("Workout duration goal is met!\n");
         }
 
@@ -102,6 +105,26 @@ class InMemoryGoalServiceTest {
             )).thenReturn(1500);
 
             assertFalse(goalService.isGoalMet(goal));
+
             System.out.print("Calories burnt goal has not been met!\n");
         }
+
+    // ensure goals are registered
+        @Test
+        void registerGoalStoresGoal() {
+            Goal goal = new Goal(
+                    "Run once",
+                    WorkoutType.RUNNING,
+                    GoalMetric.WORKOUT_COUNT,
+                    GoalTimeframe.WEEKLY,
+                    1
+            );
+
+            goalService.registerGoal(goal);
+
+            assertEquals(1, goalService.getAllGoals().length);
+
+            System.out.print("Goals are properly registered!");
+        }
+
 }

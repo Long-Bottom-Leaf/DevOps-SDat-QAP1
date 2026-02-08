@@ -15,12 +15,19 @@ public class InMemoryGoalService implements GoalService {
     private final List<Goal> goals = new ArrayList<>();
 
     public InMemoryGoalService(ProgressService progressService) {
+        if (progressService == null) {
+            throw new IllegalArgumentException("ProgressService cannot be null");
+        }
         this.progressService = progressService;
     }
 
+
     // register goal
-        @Override
+    @Override
         public void registerGoal(Goal goal) {
+            if (goal == null) {
+                throw new IllegalArgumentException("Goal cannot be null");
+            }
             goals.add(goal);
         }
 
@@ -60,6 +67,6 @@ public class InMemoryGoalService implements GoalService {
     // get all goals
         @Override
         public Goal[] getAllGoals() {
-            return new Goal[0];
+            return goals.toArray(new Goal[0]);
         }
 }

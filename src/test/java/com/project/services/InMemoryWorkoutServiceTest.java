@@ -3,6 +3,7 @@ package com.project.services;
 import com.project.fitnesstracker.Workout;
 import com.project.fitnesstracker.WorkoutType;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
