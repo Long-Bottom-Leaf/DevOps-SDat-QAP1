@@ -5,6 +5,7 @@ import com.project.fitnesstracker.WorkoutType;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;     // collectors has useful operations for accumulating and summarizing elements
 
 public class InMemoryProgressService implements ProgressService {
@@ -40,6 +41,8 @@ public class InMemoryProgressService implements ProgressService {
     // totals by type of workout
         @Override
         public int totalWorkoutsByType(WorkoutType type) {
+            Objects.requireNonNull(type, "WorkoutType cannot be null");
+
             return (int) workoutService.getAllWorkouts()
                     .stream()
                     .filter(workout -> workout.getType() == type)
@@ -48,6 +51,8 @@ public class InMemoryProgressService implements ProgressService {
 
         @Override
         public int totalDurationByType(WorkoutType type) {
+            Objects.requireNonNull(type, "WorkoutType cannot be null");
+
             return workoutService.getAllWorkouts()
                     .stream()
                     .filter(workout -> workout.getType() == type)
@@ -57,6 +62,8 @@ public class InMemoryProgressService implements ProgressService {
 
         @Override
         public int totalCaloriesByType(WorkoutType type) {
+            Objects.requireNonNull(type, "WorkoutType cannot be null");
+
             return workoutService.getAllWorkouts()
                     .stream()
                     .filter(workout -> workout.getType() == type)
@@ -67,6 +74,9 @@ public class InMemoryProgressService implements ProgressService {
     // totals by date range
         @Override
         public int totalWorkoutsByDateRange(LocalDate start, LocalDate end) {
+            Objects.requireNonNull(start, "Start date cannot be null");
+            Objects.requireNonNull(end, "End date cannot be null");
+
             return (int) workoutService.getAllWorkouts()
                     .stream()
                     .filter(workout -> !workout.getDate().isBefore(start) && !workout.getDate().isAfter(end))
@@ -75,6 +85,9 @@ public class InMemoryProgressService implements ProgressService {
 
         @Override
         public int totalDurationByDateRange(LocalDate start, LocalDate end) {
+            Objects.requireNonNull(start, "Start date cannot be null");
+            Objects.requireNonNull(end, "End date cannot be null");
+
             return workoutService.getAllWorkouts()
                     .stream()
                     .filter(workout -> !workout.getDate().isBefore(start) && !workout.getDate().isAfter(end))
@@ -84,6 +97,9 @@ public class InMemoryProgressService implements ProgressService {
 
         @Override
         public int totalCaloriesByDateRange(LocalDate start, LocalDate end) {
+            Objects.requireNonNull(start, "Start date cannot be null");
+            Objects.requireNonNull(end, "End date cannot be null");
+
             return workoutService.getAllWorkouts()
                     .stream()
                     .filter(workout -> !workout.getDate().isBefore(start) && !workout.getDate().isAfter(end))
@@ -98,6 +114,10 @@ public class InMemoryProgressService implements ProgressService {
                 LocalDate start,
                 LocalDate end
         ) {
+            Objects.requireNonNull(type, "WorkoutType cannot be null");
+            Objects.requireNonNull(start, "Start date cannot be null");
+            Objects.requireNonNull(end, "End date cannot be null");
+
             return (int) workoutService.getAllWorkouts()
                     .stream()
                     .filter(workout -> workout.getType() == type)
@@ -113,6 +133,10 @@ public class InMemoryProgressService implements ProgressService {
                 LocalDate start,
                 LocalDate end
         ) {
+            Objects.requireNonNull(type, "WorkoutType cannot be null");
+            Objects.requireNonNull(start, "Start date cannot be null");
+            Objects.requireNonNull(end, "End date cannot be null");
+
             return workoutService.getAllWorkouts()
                     .stream()
                     .filter(workout -> workout.getType() == type)
@@ -129,6 +153,10 @@ public class InMemoryProgressService implements ProgressService {
                 LocalDate start,
                 LocalDate end
         ) {
+            Objects.requireNonNull(type, "WorkoutType cannot be null");
+            Objects.requireNonNull(start, "Start date cannot be null");
+            Objects.requireNonNull(end, "End date cannot be null");
+
             return workoutService.getAllWorkouts()
                     .stream()
                     .filter(workout -> workout.getType() == type)
@@ -142,6 +170,8 @@ public class InMemoryProgressService implements ProgressService {
     // ===== Filters =====
         @Override
         public List<Workout> filterByType(WorkoutType type) {
+            Objects.requireNonNull(type, "WorkoutType cannot be null");
+
             return workoutService.getAllWorkouts()
                     .stream()
                     .filter(workout -> workout.getType() == type)
@@ -150,6 +180,9 @@ public class InMemoryProgressService implements ProgressService {
 
         @Override
         public List<Workout> filterByDateRange(LocalDate start, LocalDate end) {
+            Objects.requireNonNull(start, "Start date cannot be null");
+            Objects.requireNonNull(end, "End date cannot be null");
+
             return workoutService.getAllWorkouts()
                     .stream()
                     .filter(workout -> !workout.getDate().isBefore(start) && !workout.getDate().isAfter(end))
