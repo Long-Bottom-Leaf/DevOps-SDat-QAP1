@@ -59,7 +59,7 @@ public class MainApp {
                 System.out.print("Enter Workout Date (YYYY-MM-DD): ");
                 LocalDate date = LocalDate.parse(input.nextLine());
 
-                System.out.print("Enter Workout Type (RUNNING, CYCLING, WEIGHTS): ");
+                System.out.print("Enter Workout Type (RUNNING, CYCLING, SWIMMING, WEIGHTS, YOGA): ");
                 WorkoutType type = WorkoutType.valueOf(input.nextLine().toUpperCase());
 
                 System.out.print("Enter Duration (minutes): ");
@@ -81,8 +81,8 @@ public class MainApp {
     // show workouts logic
         private static void showWorkouts(WorkoutService workoutService) {
             System.out.println("\n=== All Workouts ===");
-            for (Workout w : workoutService.getAllWorkouts()) {
-                System.out.println(w.getId() + " | " + w.getDate() + " | " + w.getType() + " | " + w.getDuration() + " min | " + w.getCaloriesBurned() + " cal");
+            for (Workout workout : workoutService.getAllWorkouts()) {
+                System.out.println(workout.getId() + " | " + workout.getDate() + " | " + workout.getType() + " | " + workout.getDuration() + " min | " + workout.getCaloriesBurned() + " cal");
             }
         }
 
@@ -100,7 +100,7 @@ public class MainApp {
                 System.out.print("Enter Goal Description: ");
                 String desc = input.nextLine();
 
-                System.out.print("Enter Workout Type (RUNNING, CYCLING, WEIGHTS): ");
+                System.out.print("Enter Workout Type (RUNNING, CYCLING, SWIMMING, WEIGHTS, YOGA): ");
                 WorkoutType type = WorkoutType.valueOf(input.nextLine().toUpperCase());
 
                 System.out.print("Enter Metric (WORKOUT_COUNT, TOTAL_DURATION, TOTAL_CALORIES): ");
