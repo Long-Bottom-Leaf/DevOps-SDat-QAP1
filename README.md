@@ -1,0 +1,157 @@
+1. Clean Code Practices
+
+This project follows clean code principles to ensure readability, maintainability, and scalability. Here are three examples from our code:
+
+Example 1: Single Responsibility Principle
+
+Each class has a single responsibility:
+
+- WorkoutService only manages storage and retrieval of workout data.
+- ProgressService calculates metrics like total workouts, calories, and duration without modifying data.
+- GoalService evaluates if user goals are met, without storing or calculating raw workout data.
+
+Code:
+
+public class InMemoryWorkoutService implements WorkoutService {
+    private final List<Workout> workouts = new ArrayList<>();
+
+    @Override
+    public void logWorkout(Workout workout) {
+        if (workout == null) throw new IllegalArgumentException("Workout cannot be null");
+        workouts.add(workout);
+    }
+
+    @Override
+    public List<Workout> getAllWorkouts() {
+        return Collections.unmodifiableList(workouts);
+    }
+}
+
+Example 2: Readable and Self-Documenting Code
+
+This project uses clear variable names (workoutService, progressService, totalCaloriesByTypeAndDateRange) instead of short ambiguous ones.
+Methods clearly describe functionality, ex: totalWorkoutsByTypeAndDateRange().
+
+Code:
+
+@Override
+public int totalCaloriesByDateRange(LocalDate start, LocalDate end) {
+	return workoutService.getAllWorkouts()
+        .stream()
+        .filter(workout -> !workout.getDate().isBefore(start) && !workout.getDate().isAfter(end))
+        .mapToInt(Workout::getCaloriesBurned)
+        .sum();
+}
+
+Example 3: Defensive Programming
+
+We validate inputs to prevent runtime errors.
+
+public Goal(String description, WorkoutType workoutType, GoalMetric metric, GoalTimeframe timeframe, int targetValue) {
+    if (workoutType == null || metric == null || timeframe == null) {
+        throw new IllegalArgumentException("Goal fields cannot be empty!");
+    }
+    if (targetValue <= 0) {
+        throw new IllegalArgumentException("Target value must be greater than zero!");
+    }
+    this.description = description;
+    this.workoutType = workoutType;
+    this.metric = metric;
+    this.timeframe = timeframe;
+    this.targetValue = targetValue;
+}
+
+
+2. Project Overview
+
+The Fitness Tracker program is a console based program designed to track workouts, monitor progress, and set/track goals. Users are able to log workouts, create exercise goals based on weekly or monthly time frames, and view progress metrics based on user input.
+
+Features
+
+- Workout Management
+- Add new workouts with ID, date, type, duration, and calories burned
+- Retrieve all workouts
+- Filter workouts by type or date range
+
+Progress Tracking
+
+- Total workouts, duration, and calories burned
+- Metrics filtered by workout type or date range
+- Combined metrics for goals (type + date range)
+
+Goal Management
+
+- Create goals with description, workout type, metric, target, and timeframe (weekly/monthly)
+- Evaluate if goals are met using progress service
+- Goal metrics include workout count, total duration, and total calories
+
+Console Interface
+
+- Menu-driven system
+- Error handling for invalid inputs
+- Displays workouts, progress, and goal status
+
+Project Structure
+
+com.project.fitnesstracker
+│
+├─ MainApp.java           # Console app entry point
+├─ Workout.java           # Workout model
+├─ WorkoutType.java       # Enum for workout types
+├─ Goal.java              # Goal model
+├─ GoalMetric.java        # Enum for goal metric
+├─ GoalTimeframe.java     # Enum for goal timeframe
+│
+com.project.services
+├─ WorkoutService.java        	# Interface for workout management
+├─ InMemoryWorkoutService.java	# In-memory implementation
+├─ ProgressService.java       	# Interface for progress calculations
+├─ InMemoryProgressService.java
+├─ GoalService.java           	# Interface for goal management
+├─ InMemoryGoalService.java
+│
+test
+├─ InMemoryWorkoutServiceTest.java
+├─ InMemoryProgressServiceTest.java
+├─ InMemoryGoalServiceTest.java
+
+3. Dependencies
+
+The project uses Maven to manage dependencies:
+
+| Dependency              | Purpose                         | Source        |
+| ----------------------- | ------------------------------- | ------------- |
+| `junit-jupiter-api`     | Unit testing framework          | Maven Central |
+| `junit-jupiter-engine`  | Runs JUnit 5 tests              | Maven Central |
+| `mockito-core`          | Mocking objects for testing     | Maven Central |
+| `mockito-junit-jupiter` | Integrates Mockito with JUnit 5 | Maven Central |
+
+Dependency Examples:
+
+<dependencies>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>5.10.1</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>5.10.1</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>5.8.0</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-junit-jupiter</artifactId>
+        <version>5.8.0</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+
