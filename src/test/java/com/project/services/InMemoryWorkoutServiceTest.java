@@ -25,6 +25,13 @@ public class InMemoryWorkoutServiceTest {
                     300
             );
 
+            service.logWorkout(workout);
+
+            List<Workout> workouts = service.getAllWorkouts();
+
+            assertEquals(1, workouts.size());
+            assertEquals(workout, workouts.getFirst());
+
             System.out.println("Workout successfully logged!");
         }
 
@@ -61,7 +68,19 @@ public class InMemoryWorkoutServiceTest {
                     500
             );
 
-            System.out.println("Workouts successfully logged! " + workout1.getType() + " / " + workout2.getType());
+            service.logWorkout(workout1);
+            service.logWorkout(workout2);
+
+            List<Workout> workouts = service.getAllWorkouts();
+
+            assertEquals(2, workouts.size());
+            assertTrue(workouts.contains(workout1));
+            assertTrue(workouts.contains(workout2));
+
+            System.out.println(
+                    "Workouts successfully logged! "
+                            + workout1.getType() + " / " + workout2.getType()
+            );
         }
 
     // ensure list cannot be modified
