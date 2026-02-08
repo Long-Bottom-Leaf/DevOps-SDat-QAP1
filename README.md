@@ -155,3 +155,12 @@ Dependency Examples:
     </dependency>
 </dependencies>
 
+4. Project Issues
+
+I did struggle with some parts of the project, but mostly experience things like specific syntax etc.
+The one thing I DID have a lot of trouble with, though I'll admit entirely own fault, is a miss-match between my local
+repo and git actions. At one point I did.. something, that just completely made the actions break and it took me about
+3 hours to figure it out.
+
+Besides that, I just need more experience, so I don't have to rely so much on looking up every other little thing and
+using chatGPT/copilot/etc as much.
